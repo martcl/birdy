@@ -81,7 +81,7 @@ type Event = {
 
 export default function CalanderPage({
   events,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: {events: Event[]}) {
 
   const [calanderData, setCalanderData] = useState<Event[]>(events);
   const [filter, setFilter] = useState<string | null>("Alle");
@@ -197,7 +197,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await Promise.all(
     responses.map(async (res) => {
       const calData = await res.json();
-      return calData.items.map((item) => {
+      return calData.items.map((item: any) => {
         return {
           id: item?.id,
           start: item?.start.dateTime || null,
