@@ -38,7 +38,7 @@ export default function IndexPage() {
               Vi er en aktiv speidergruppe med ca. 100 medlemmer som dekker
               området Nadderud, Bekkestua, Hosle, Eikeli og Haslum.
             </Typography>
-            <Link href="/terminliste">
+            <Link href="/bli-speider">
               <Button variant="contained">Les mer</Button>
             </Link>
           </Box>

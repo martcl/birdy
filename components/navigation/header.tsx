@@ -62,8 +62,8 @@ export default function Header() {
             </Stack>
           ) : (
             <Box sx={{ gap: 2, display: "flex" }}>
-              <Link href="/">
-                <Button variant="contained">Prøv speiding</Button>
+              <Link href="/bli-speider">
+                <Button size="small" variant="contained">Prøv speiding</Button>
               </Link>
               <IconButton onClick={() => setOpen(true)}>
                 <MenuRoundedIcon />
@@ -95,7 +95,7 @@ export default function Header() {
                     <Link href="/kontakt">
                       <Button>Kontakt oss</Button>
                     </Link>
-                    <Link href="/">
+                    <Link href="/bli-speider">
                       <Button variant="contained">Prøv speiding</Button>
                     </Link>
                   </Box>

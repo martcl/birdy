@@ -79,8 +79,8 @@ export default function ClientPage() {
       <Container sx={{ py: 4, px: 2, maxWidth: 500}}>
         <Typography variant="h2">Spørsmål om speiding</Typography>
         <br></br>
-        {questionsAndAnswers.map((QandA) => (
-          <Accordion>
+        {questionsAndAnswers.map((QandA, i) => (
+          <Accordion key={i}>
             <AccordionSummary
               expandIcon={<ExpandMoreRoundedIcon />}
               aria-controls="panel1a-content"

@@ -1,4 +1,15 @@
-import { Box, Container, Grid, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import {
+  Box,
+  Chip,
+  Container,
+  Divider,
+  Grid,
+  Paper,
+  Stack,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useEffect, useState } from "react";
 import Hero from "../../components/layout/hero";
@@ -79,24 +90,20 @@ type Event = {
   calander: string;
 };
 
-export default function CalanderPage({
-  events,
-}: {events: Event[]}) {
-
+export default function CalanderPage({ events }: { events: Event[] }) {
   const [calanderData, setCalanderData] = useState<Event[]>(events);
   const [filter, setFilter] = useState<string | null>("Alle");
 
   useEffect(() => {
-    console.log(events)
-    console.log(calanderData)
-  }, [calanderData])
+    console.log(events);
+    console.log(calanderData);
+  }, [calanderData]);
 
-  
   const handleFilter = (
     event: React.MouseEvent<HTMLElement>,
     newFilter: string | null
   ) => {
-    setFilter(newFilter)
+    setFilter(newFilter);
     switch (newFilter) {
       case "Alle":
         setCalanderData(events);
@@ -107,7 +114,7 @@ export default function CalanderPage({
             (event) => event.calander === "Flokken" || event.calander === "Alle"
           )
         );
-        
+
         return;
       case "Troppen":
         setCalanderData(
@@ -139,51 +146,136 @@ export default function CalanderPage({
     }
   };
 
+  const getDateDay = (date: string | undefined) =>
+    new Date(date || "")
+      .toLocaleDateString("no-NO", { day: "numeric" })
+      .replace(".", "");
+
+  const getDateClock = (date: string | undefined) => {
+    let clock = new Date(date || "");
+    return clock.getHours() + ":" + clock.getMinutes();
+  };
+
+  const getDateWeekday = (date: string | undefined) =>
+    new Date(date || "")
+      .toLocaleDateString("no-NO", { weekday: "short" })
+      .replace(".", "");
+
+  const isSameDay = (day1: string | undefined, day2: string | undefined) =>
+    getDateDay(day1) === getDateDay(day2);
+
   return (
     <Layout>
       <Hero
         src="/leirbaal.jpeg"
         description="Her finner du møter og turer vi har planlagt fremover. Vi bruker også Spond."
       />
-      <Container sx={{ py: 5 }}>
-        <Typography variant="h2">Terminlista</Typography>
+      <Container sx={{ py: 5, px: 2 }}>
+        <Typography variant="h2" fontWeight={600}>
+          Terminlista
+        </Typography>
+        <Typography>
+          Her bår det kanskje stå noe om hva som finnes av arrangementer og
+          hvordan man finner sine eventer med filtrering
+        </Typography>
         <ToggleButtonGroup
           value={filter}
           exclusive
           onChange={handleFilter}
           aria-label="text alignment"
-          sx={{flexWrap: "wrap"}}
+          sx={{ flexWrap: "wrap" }}
         >
           {calanders.map((calander) => (
-            <ToggleButton key={calander.id} value={calander.name} aria-label="left aligned">
+            <ToggleButton
+              key={calander.id}
+              value={calander.name}
+              aria-label="left aligned"
+            >
               {calander.name}
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
-        <Box>
-        {calanderData ? (
-            calanderData.map(event => (
-              <Grid container>
-                <Grid item xs={2}>
-                  <Typography>{event.end && "-" + new Date(event.end).toLocaleDateString() /* .toLocaleDateString("undefined", { day: 'numeric' }) */}</Typography>
-                </Grid>
-                <Grid item xs={10}>
-                  <Typography> {event.summary}</Typography>
-                  <Typography> {event.description}</Typography>
-                </Grid>
-              </Grid> 
+        <Stack
+          maxWidth={800}
+          divider={<Divider orientation="horizontal" flexItem />}
+          spacing={1}
+        >
+          {calanderData ? (
+            calanderData.map((event) => (
+              <Paper sx={{py: 2, px: 1}}>
+                <Stack key={event.id} direction="row" spacing={1}>
+                  <Stack sx={{ minWidth: 70 }}>
+                    <Typography
+                      align="center"
+                      variant="h3"
+                      fontWeight={600}
+                      fontSize="1.2rem"
+                    >
+                      {isSameDay(event.start, event.end)
+                        ? getDateDay(event.start)
+                        : getDateDay(event.start) + "-" + getDateDay(event.end)}
+                    </Typography>
+                    <Typography
+                      align="center"
+                      sx={{ color: (theme) => theme.palette.text.secondary }}
+                    >
+                      {isSameDay(event.start, event.end)
+                        ? getDateWeekday(event.start)
+                        : getDateWeekday(event.start) +
+                          "-" +
+                          getDateWeekday(event.end)}
+                    </Typography>
+                  </Stack>
+                  <Stack sx={{ flexGrow: 1 }} spacing={0.5}>
+                    <Stack direction="row" spacing={2}>
+                      <Typography> {event.summary}</Typography>
+                      <Chip
+                        size="small"
+                        label={event.calander}
+                        variant="filled"
+                      ></Chip>
+                    </Stack>
+                    <Stack direction="row" spacing={2}>
+                      {event.end && (
+                        <Typography>
+                          {getDateClock(event.start) +
+                            "-" +
+                            getDateClock(event.end)}
+                        </Typography>
+                      )}
+                      {event.location && (
+                        <Typography>{event.location}</Typography>
+                      )}
+                    </Stack>
+                    {event.description && (
+                      <Paper sx={{ p: 2 }} variant="outlined">
+                        <Typography
+                          sx={{ wordBreak: "break-word", boxShadow: "" }}
+                        >
+                          {" "}
+                          {event.description}
+                        </Typography>
+                      </Paper>
+                    )}
+                  </Stack>
+                </Stack>
+              </Paper>
             ))
-            
-        ): (
+          ) : (
             <></>
-        )}
-        </Box>
+          )}
+        </Stack>
       </Container>
     </Layout>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  context.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
+
   const TIME_MIN = new Date(Date.now() - 86400000).toISOString();
 
   const responses = await Promise.all(
