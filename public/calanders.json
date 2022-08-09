@@ -1,0 +1,74 @@
+[
+    {
+      "name": "Alle",
+      "id": "nadderud.no_nmhftcmqkjihqv2p0dbdh09o34@group.calendar.google.com",
+      "slug": "",
+      "visible": false
+    },
+    {
+      "name": "Flokken",
+      "nameExt": " (3-4. klasse)",
+      "id": "nadderud.no_qlitigf1h23kh5koa0omi1apu8@group.calendar.google.com",
+      "slug": "flokken",
+      "visible": true,
+      "sortKey": 10
+    },
+    {
+      "name": "Troppen",
+      "nameExt": " (5-10. klasse)",
+      "id": "nadderud.no_2929cu4kt3lj8tqu7ob8joguf0@group.calendar.google.com",
+      "slug": "troppen",
+      "visible": true,
+      "sortKey": 20
+    },
+    {
+      "name": "Ekorn",
+      "id": "nadderud.no_76a5l1knl6qh54jkg3s93uf3fc@group.calendar.google.com",
+      "slug": "troppen/ekorn",
+      "visible": true,
+      "sortKey": 20
+    },
+    {
+      "name": "Elg",
+      "id": "nadderud.no_3cvsqgnedtvt3na142fli5cels@group.calendar.google.com",
+      "slug": "troppen/elg",
+      "visible": true,
+      "sortKey": 20
+    },
+    {
+      "name": "Hare",
+      "id": "nadderud.no_nve4frornciu2fpa3qa55amef0@group.calendar.google.com",
+      "slug": "troppen/hare",
+      "visible": true,
+      "sortKey": 20
+    },
+    {
+      "name": "Rev",
+      "id": "nadderud.no_vtvgrgkpp18gvsh0pcksb379og@group.calendar.google.com",
+      "slug": "troppen/rev",
+      "visible": true,
+      "sortKey": 20
+    },
+    {
+      "name": "Ulv",
+      "id": "nadderud.no_fb2bu5m6arldhi5b7kr9nrgid4@group.calendar.google.com",
+      "slug": "troppen/ulv",
+      "visible": true,
+      "sortKey": 20
+    },
+    {
+      "name": "Ørn",
+      "id": "nadderud.no_609bou5r8u9cl5e5lqdve7vq18@group.calendar.google.com",
+      "slug": "troppen/ørn",
+      "visible": true,
+      "sortKey": 20
+    },
+    {
+      "name": "Roverlaget",
+      "nameExt": " (16-25 år)",
+      "id": "c_dpj0b5jk1slqj2sb9tj0ot7kj0@group.calendar.google.com",
+      "slug": "rover",
+      "visible": true,
+      "sortKey": 30
+    }
+  ]
