@@ -1,17 +1,35 @@
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Link as MuiLink,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import Link from "next/link";
 
 export default function Footer() {
   return (
     <footer>
-      <hr></hr>
-      <Box
+      <Paper
         sx={{
-          maxWidth: "1200px",
-          mx: "auto",
+          py: 3,
+          px: 2
         }}
       >
-        <Typography>THis is a footer</Typography>
-      </Box>
+        <Stack mx="auto" justifyContent="center" direction="row" gap={2} flexWrap="wrap">
+          <MuiLink href="/kontakt" component={Link}>
+            Om gruppen
+          </MuiLink>
+
+          <MuiLink href="/personvern" component={Link}>
+            Personvern (cookies)
+          </MuiLink>
+          <Typography>
+            © {new Date().getFullYear()} Nadderud speidergruppe
+          </Typography>
+        </Stack>
+      </Paper>
     </footer>
   );
 }
