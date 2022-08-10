@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Hero from "../../components/layout/hero";
 import Layout from "../../components/layout/layout";
@@ -181,9 +182,10 @@ export default function CalanderPage({ events }: { events: Event[] }) {
         <ToggleButtonGroup
           value={filter}
           exclusive
+          color="primary"
           onChange={handleFilter}
           aria-label="text alignment"
-          sx={{ flexWrap: "wrap" }}
+          sx={{ flexWrap: "wrap", my: 2 }}
         >
           {calanders.map((calander) => (
             <ToggleButton
@@ -200,9 +202,9 @@ export default function CalanderPage({ events }: { events: Event[] }) {
           divider={<Divider orientation="horizontal" flexItem />}
           spacing={1}
         >
-          {calanderData ? (
+          {calanderData.length > 0 ? (
             calanderData.map((event) => (
-              <Paper sx={{py: 2, px: 1}}>
+              <Paper sx={{ py: 2, px: 1 }}>
                 <Stack key={event.id} direction="row" spacing={1}>
                   <Stack sx={{ minWidth: 70 }}>
                     <Typography
@@ -262,7 +264,18 @@ export default function CalanderPage({ events }: { events: Event[] }) {
               </Paper>
             ))
           ) : (
-            <></>
+            <Stack sx={{p: 3, gap: 1, alignItems: "center"}}>
+              <Box sx={{ position: "relative", height: 300, width: 300 }}>
+                <Image
+                  layout="fill"
+                  objectFit="contain"
+                  src="/empty.svg"
+                ></Image>
+              </Box>
+              <Typography maxWidth={400}>
+                Vi fant ingen arrangementer på nettsiden. Sjekk Spond, vi er mer aktive der.
+              </Typography>
+            </Stack>
           )}
         </Stack>
       </Container>

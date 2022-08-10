@@ -72,6 +72,7 @@ export default function ClientPage() {
           er smart å kunne, og på leir blir du kjent med speidere fra andre
           steder og andre land. Bli med og prøv noe nytt sammen med oss!
         </Typography>
+        <br></br>
         <Button endIcon={<OpenInNewRoundedIcon />} variant="contained">
           Gå til innmeldingskjema
         </Button>

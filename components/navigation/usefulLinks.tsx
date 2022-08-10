@@ -4,6 +4,7 @@ import {
   Divider,
   Grid,
   Link,
+  Paper,
   Stack,
   Typography,
 } from "@mui/material";
@@ -15,62 +16,66 @@ export default function UsefulLinks() {
     {
       description:
         "Her finner man alt informasjon om speidernorge. og alt annet duterbger å vite om",
-      herf: "/speidersport.webp",
+      image: "/speidersport.webp",
       title: "Speidersport",
+      herf: "https://www.speidersport.no/",
     },
     {
       description:
         "Her finner man alt informasjon om speidernorge. og alt annet duterbger å vite om",
-      herf: "/nsf.png",
+      image: "/nsf.png",
       title: "Norges speiderforbund",
+      herf: "https://speiding.no/",
     },
     {
       description:
         "Her finner man alt informasjon om speidernorge. og alt annet duterbger å vite om",
-      herf: "/nsf.png",
+      image: "/nsf.png",
       title: "Vestmarka Speiderkrets",
+      herf: "https://vestmarka.speiding.no/",
     },
   ];
 
   return (
-    <Box sx={{ py: 4, px: 1}}>
-      <Stack
-        gap={2}
-        maxWidth={1000}
-        sx={{ mx: "auto" }}
-        divider={<Divider orientation="horizontal" flexItem />}
-      >
-        <Typography variant="h2" textAlign="center">
-          Nyttige lenker
-        </Typography>
-        <Grid container>
-          {links.map((link) => (
-            <Grid
+    <Stack
+      gap={2}
+      maxWidth={1000}
+      sx={{ mx: "auto", p: 2 }}
+      divider={<Divider orientation="horizontal" flexItem />}
+    >
+      <Typography variant="h2" textAlign="center">
+        Nyttige lenker
+      </Typography>
+      <Grid container spacing={2}>
+        {links.map((link) => (
+          <Grid
             key={link.title}
-              gap={2}
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              alignItems="center"
-              sx={{ display: "flex", flexDirection: "column" }}
-            >
+            xs={12}
+            sm={6}
+            md={4}
+            item
+          >
+            <Stack component={Paper} p={3} gap={1} alignItems="center">
               <Box
-                height={100}
-                width={100}
-                sx={{ backgroundColor: "rgb(73, 125, 150)", borderRadius: 25, position: "relative", overflow: 'hidden' }}
+                height={75}
+                width={75}
+                sx={{
+                  backgroundColor: "rgb(73, 125, 150)",
+                  borderRadius: 25,
+                  position: "relative",
+                  overflow: "hidden",
+                }}
               >
-                <Image src={link.herf} layout="fill" objectFit="cover" />
+                <Image src={link.image} layout="fill" objectFit="cover" />
               </Box>
-              <Button endIcon={<OpenInNewRoundedIcon />}>{link.title}</Button>
-              <Typography maxWidth={300}>
-                {link.description}
-              </Typography>
-            </Grid>
-          ))}
-        </Grid>
-      </Stack>
-    
-    </Box>
+              <Link href={link.herf}>
+                <Button endIcon={<OpenInNewRoundedIcon />}>{link.title}</Button>
+              </Link>
+              <Typography maxWidth={400}>{link.description}</Typography>
+              </Stack>
+          </Grid>
+        ))}
+      </Grid>
+    </Stack>
   );
 }
