@@ -60,8 +60,7 @@ export default function ClientPage() {
   ];
   return (
     <Layout>
-      <Hero height={350} src="/leirbaal.jpeg" />
-
+      <Hero title="Bli speider" explanation="På denne siden finner du all informasjon for å starte speider resien." description="Eventyrene er der ute! Prøv speiding da vel." height={350} src="/leirbaal.jpeg" />
       <ImageCard src="/leirbaal.jpeg">
         <Typography variant="h2">Eventyrene er der ute!</Typography>
         <Typography maxWidth={500}>

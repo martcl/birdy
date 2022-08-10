@@ -17,7 +17,8 @@ export default function ImageCard({ src, reverse, children }: Props) {
         mx: "auto",
         backgroundColor: (theme) => theme.palette.background.default,
         color: (theme) => theme.palette.text.primary,
-        p: 4,
+        px: 2,
+        py: 4
       }}
       gap={2}
     >

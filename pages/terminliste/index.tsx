@@ -12,7 +12,9 @@ import {
 } from "@mui/material";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
+import { CalanderEvent } from "../../components/calander/calanderEvent";
+import { CalanderMonth } from "../../components/calander/calanderMonth";
 import Hero from "../../components/layout/hero";
 import Layout from "../../components/layout/layout";
 
@@ -95,11 +97,6 @@ export default function CalanderPage({ events }: { events: Event[] }) {
   const [calanderData, setCalanderData] = useState<Event[]>(events);
   const [filter, setFilter] = useState<string | null>("Alle");
 
-  useEffect(() => {
-    console.log(events);
-    console.log(calanderData);
-  }, [calanderData]);
-
   const handleFilter = (
     event: React.MouseEvent<HTMLElement>,
     newFilter: string | null
@@ -147,29 +144,26 @@ export default function CalanderPage({ events }: { events: Event[] }) {
     }
   };
 
-  const getDateDay = (date: string | undefined) =>
-    new Date(date || "")
-      .toLocaleDateString("no-NO", { day: "numeric" })
-      .replace(".", "");
+  let currentMonth: null | number = null;
 
-  const getDateClock = (date: string | undefined) => {
-    let clock = new Date(date || "");
-    return clock.getHours() + ":" + clock.getMinutes();
+  const monthRow = function monthRow(date: string) {
+    const thisMonth = new Date(date).getMonth();
+    if (currentMonth === thisMonth) {
+      return null;
+    }
+    currentMonth = thisMonth;
+    return (
+      <CalanderMonth month={new Date(date).toLocaleDateString("no-No", { month: "long" })} />
+    );
   };
-
-  const getDateWeekday = (date: string | undefined) =>
-    new Date(date || "")
-      .toLocaleDateString("no-NO", { weekday: "short" })
-      .replace(".", "");
-
-  const isSameDay = (day1: string | undefined, day2: string | undefined) =>
-    getDateDay(day1) === getDateDay(day2);
 
   return (
     <Layout>
       <Hero
+        height={200}
+        title="Program"
         src="/leirbaal.jpeg"
-        description="Her finner du møter og turer vi har planlagt fremover. Vi bruker også Spond."
+        explanation="Her finner du møter og turer vi har planlagt fremover. Vi bruker også Spond."
       />
       <Container sx={{ py: 5, px: 2 }}>
         <Typography variant="h2" fontWeight={600}>
@@ -204,67 +198,13 @@ export default function CalanderPage({ events }: { events: Event[] }) {
         >
           {calanderData.length > 0 ? (
             calanderData.map((event) => (
-              <Paper sx={{ py: 2, px: 1 }}>
-                <Stack key={event.id} direction="row" spacing={1}>
-                  <Stack sx={{ minWidth: 70 }}>
-                    <Typography
-                      align="center"
-                      variant="h3"
-                      fontWeight={600}
-                      fontSize="1.2rem"
-                    >
-                      {isSameDay(event.start, event.end)
-                        ? getDateDay(event.start)
-                        : getDateDay(event.start) + "-" + getDateDay(event.end)}
-                    </Typography>
-                    <Typography
-                      align="center"
-                      sx={{ color: (theme) => theme.palette.text.secondary }}
-                    >
-                      {isSameDay(event.start, event.end)
-                        ? getDateWeekday(event.start)
-                        : getDateWeekday(event.start) +
-                          "-" +
-                          getDateWeekday(event.end)}
-                    </Typography>
-                  </Stack>
-                  <Stack sx={{ flexGrow: 1 }} spacing={0.5}>
-                    <Stack direction="row" spacing={2}>
-                      <Typography> {event.summary}</Typography>
-                      <Chip
-                        size="small"
-                        label={event.calander}
-                        variant="filled"
-                      ></Chip>
-                    </Stack>
-                    <Stack direction="row" spacing={2}>
-                      {event.end && (
-                        <Typography>
-                          {getDateClock(event.start) +
-                            "-" +
-                            getDateClock(event.end)}
-                        </Typography>
-                      )}
-                      {event.location && (
-                        <Typography>{event.location}</Typography>
-                      )}
-                    </Stack>
-                    {event.description && (
-                      <Paper sx={{ p: 2 }} variant="outlined">
-                        <Typography
-                          sx={{ wordBreak: "break-word", boxShadow: "" }}
-                        >
-                          {" "}
-                          {event.description}
-                        </Typography>
-                      </Paper>
-                    )}
-                  </Stack>
-                </Stack>
-              </Paper>
+              <div key={event.id}>
+                {monthRow(event.start || "")}
+                <CalanderEvent event={event} />
+              </div>
             ))
           ) : (
-            <Stack sx={{p: 3, gap: 1, alignItems: "center"}}>
+            <Stack sx={{ p: 3, gap: 1, alignItems: "center" }}>
               <Box sx={{ position: "relative", height: 300, width: 300 }}>
                 <Image
                   layout="fill"
@@ -273,7 +213,8 @@ export default function CalanderPage({ events }: { events: Event[] }) {
                 ></Image>
               </Box>
               <Typography maxWidth={400}>
-                Vi fant ingen arrangementer på nettsiden. Sjekk Spond, vi er mer aktive der.
+                Vi fant ingen arrangementer på nettsiden. Sjekk Spond, vi er mer
+                aktive der.
               </Typography>
             </Stack>
           )}
@@ -299,7 +240,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     })
   );
 
-  const data = await Promise.all(
+  const data: Event[] = await Promise.all(
     responses.map(async (res) => {
       const calData = await res.json();
       return calData.items.map((item: any) => {
@@ -316,7 +257,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     })
   );
 
-  const events = (await data.flat().sort()) as Event[];
+  const events = (await data.flat().sort((event1, event2) => new Date(event1.start || "").getTime() - new Date(event2.start || "").getTime())) as Event[];
   // Pass data to the page via props
   return { props: { events } };
 };
