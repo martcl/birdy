@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FrontpageImageCard from "../components/layout/frontpageImageCard";
 import ImageCard from "../components/layout/imageCard";
+import { Imageroll } from "../components/layout/imageroll";
 import Layout from "../components/layout/layout";
 import UsefulLinks from "../components/navigation/usefulLinks";
 
@@ -18,7 +19,7 @@ export default function IndexPage() {
   return (
     <Layout>
       <FrontpageImageCard />
-      <Paper sx={{ py: 3, position: "relative", backgroundColor: "#71bf8d" }}>
+      <Paper sx={{ py: 3, position: "relative", background: "linear-gradient(#71bf8d, #35ca6b)" }}>
         <Box
           sx={{
             top: 0,
@@ -66,7 +67,7 @@ export default function IndexPage() {
           </Grid>
         </Box>
       </Paper>
-      <ImageCard src="/leirbaal.jpeg" reverse>
+      <ImageCard src="/bilder/flaate.jpg" reverse>
         <Typography variant="h2"> Tester testersen</Typography>
         <Typography>
           Å være speider er gøy! Vi opplever masse forskjellig – alt fra
@@ -77,7 +78,7 @@ export default function IndexPage() {
           steder og andre land. Bli med og prøv noe nytt sammen med oss!
         </Typography>
       </ImageCard>
-
+          <Imageroll />
       <UsefulLinks />
     </Layout>
   );

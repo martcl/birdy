@@ -18,6 +18,7 @@ import Layout from "../../components/layout/layout";
 import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import UsefulLinks from "../../components/navigation/usefulLinks";
+import { Imageroll } from "../../components/layout/imageroll";
 
 export default function ClientPage() {
   const questionsAndAnswers = [
@@ -60,8 +61,14 @@ export default function ClientPage() {
   ];
   return (
     <Layout>
-      <Hero title="Bli speider" explanation="På denne siden finner du all informasjon for å starte speider resien." description="Eventyrene er der ute! Prøv speiding da vel." height={350} src="/leirbaal.jpeg" />
-      <ImageCard src="/leirbaal.jpeg">
+      <Hero
+        title="Bli speider"
+        explanation="På denne siden finner du all informasjon for å starte speider resien."
+        description="Eventyrene er der ute! Prøv speiding da vel."
+        height={350}
+        src="/bilder/skiturpaafjell.jpg"
+      />
+      <ImageCard src="/bilder/agendaleir.jpg">
         <Typography variant="h2">Eventyrene er der ute!</Typography>
         <Typography maxWidth={500}>
           Å være speider er gøy! Vi opplever masse forskjellig – alt fra
@@ -76,7 +83,7 @@ export default function ClientPage() {
           Gå til innmeldingskjema
         </Button>
       </ImageCard>
-      <Container sx={{ py: 4, px: 2, maxWidth: 500}}>
+      <Container sx={{ py: 4, px: 2, maxWidth: 500 }}>
         <Typography variant="h2">Spørsmål om speiding</Typography>
         <br></br>
         {questionsAndAnswers.map((QandA, i) => (
@@ -86,7 +93,7 @@ export default function ClientPage() {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-                {QandA.question}
+              {QandA.question}
             </AccordionSummary>
             <AccordionDetails>
               <Typography>{QandA.answer}</Typography>
@@ -94,6 +101,7 @@ export default function ClientPage() {
           </Accordion>
         ))}
       </Container>
+      <Imageroll />
       <UsefulLinks />
     </Layout>
   );

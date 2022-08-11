@@ -21,7 +21,7 @@ export default function FrontpageImageCard() {
         <Box height="80vh" width="100%" position="relative">
           <Image
             priority
-            src="/leirbaal.jpeg"
+            src="/bilder/leirbaal.jpg"
             layout="fill"
             objectFit="cover"
           />

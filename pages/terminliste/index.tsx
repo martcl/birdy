@@ -162,7 +162,7 @@ export default function CalanderPage({ events }: { events: Event[] }) {
       <Hero
         height={200}
         title="Program"
-        src="/leirbaal.jpeg"
+        src="/bilder/vaffel.jpg"
         explanation="Her finner du møter og turer vi har planlagt fremover. Vi bruker også Spond."
       />
       <Container sx={{ py: 5, px: 2 }}>
@@ -227,7 +227,7 @@ export default function CalanderPage({ events }: { events: Event[] }) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   context.res.setHeader(
     "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
+    "public, s-maxage=120, stale-while-revalidate=400"
   );
 
   const TIME_MIN = new Date(Date.now() - 86400000).toISOString();
