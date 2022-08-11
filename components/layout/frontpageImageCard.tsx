@@ -11,11 +11,6 @@ export default function FrontpageImageCard() {
   return (
     <Grid
       container
-      direction="row"
-      sx={{
-        background: "whitesmoke",
-        color: "text.primary",
-      }}
     >
       <Grid item xs={12} md={7}>
         <Box height="80vh" width="100%" position="relative">
@@ -37,13 +32,11 @@ export default function FrontpageImageCard() {
           justifyContent: "center",
         }}
       >
-        <Box
+        <Stack
           sx={{
             px: 4,
             py: 6,
             pb: 7,
-            display: "flex",
-            flexDirection: "column",
             alignItems: "center",
             gap: 2,
           }}
@@ -65,7 +58,7 @@ export default function FrontpageImageCard() {
               <Button variant="contained">Les mer</Button>
             </Link>
           </Stack>
-        </Box>
+        </Stack>
       </Grid>
     </Grid>
   );

@@ -54,7 +54,7 @@ export default function ClientPage() {
                 <ListItem sx={{ display: "list-item", pl: 0 }}>
                   Philip Godager, troppsleder (5.–10. klasse):
                   <br></br>
-                  477 16 980, philip1014@outlook.com
+                  477 16 980,
                   <a href="mailto:philip1014@outlook.com">
                     philip1014@outlook.com
                   </a>
