@@ -52,7 +52,7 @@ export default function IndexPage() {
               </Box>
             </Grid>
             <Grid item xs={12} md={8}>
-              <Typography variant="h2" fontWeight={600}>
+              <Typography variant="h2" fontWeight={100}>
                 Overskrift overskrift
               </Typography>
               <Typography>

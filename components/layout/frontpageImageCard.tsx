@@ -1,17 +1,18 @@
-
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export default function FrontpageImageCard() {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
   return (
-    <Grid
-      container
-    >
+    <Grid container>
       <Grid item xs={12} md={7}>
         <Box height="80vh" width="100%" position="relative">
           <Image
@@ -20,6 +21,20 @@ export default function FrontpageImageCard() {
             layout="fill"
             objectFit="cover"
           />
+          <Box position="absolute" sx={{ bottom: 40, p: 2 }}>
+            {!matches && (
+              <Typography
+                textAlign="center"
+                color="white"
+                fontFamily="Georgia,Times,Times New Roman,serif"
+                fontWeight={100}
+                variant="h1"
+                component="h2"
+              >
+                Eventyrene er der ute!
+              </Typography>
+            )}
+          </Box>
         </Box>
       </Grid>
       <Grid
@@ -42,7 +57,11 @@ export default function FrontpageImageCard() {
           }}
         >
           <Image src="/nsf.png" height={80} width={80}></Image>
-          <Typography variant="h1" textAlign="center">
+          <Typography
+            variant="h1"
+            fontSize={(matches && 40) || 35}
+            textAlign="center"
+          >
             Nadderud Speidergeuppe
           </Typography>
           <Typography paragraph maxWidth={400}>
