@@ -121,7 +121,7 @@ export default function CalanderPage({ events }: { events: Event[] }) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   context.res.setHeader(
     "Cache-Control",
-    "public, s-maxage=120, stale-while-revalidate=400"
+    "public, s-maxage=3600, stale-while-revalidate=3800"
   );
 
   const TIME_MIN = new Date(Date.now() - 86400000).toISOString();
@@ -147,8 +147,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return str.length > n ? str.slice(0, n - 1) + "... Les mer på Spond." : str;
   }
 
-  await console.log("-------------", responseData);
-
   const data: Event[] = await responseData.map((event) => {
     return {
       id: event.id,
@@ -156,7 +154,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       description: event.description ? truncate(event.description, 150) : " ",
       start: event.startTimestamp,
       end: event.endTimestamp,
-      groupNames: typeof event.recipients.group?.subGroups === "object" ?event.recipients.group?.subGroups.map((group) => {
+      groupNames: typeof event.recipients.group.subGroups === "object" ? event.recipients.group?.subGroups.map((group) => {
         return { name: group.name, color: group.color };
       }) || [{ name: "Alle", color: "black" }] : [{ name: "Alle", color: "black" }],
       location: event.location?.feature || "",
