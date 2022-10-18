@@ -141,7 +141,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   );
 
-  let responseData = await response.json();
+  let responseData: any[] = await response.json();
 
   function truncate(str: string, n: number) {
     return str.length > n ? str.slice(0, n - 1) + "... Les mer på Spond." : str;
