@@ -22,23 +22,11 @@ export default function IndexPage() {
       <Paper sx={{ py: 3, position: "relative", background: "linear-gradient(#71bf8d, #35ca6b)" }}>
         <Box
           sx={{
-            top: 0,
-            position: "absolute",
-            height: 75,
-            transform: "translate(0, -70px)",
-            width: "100%",
-            backgroundImage: "url('/grass.svg')",
-            backgroundRepeat: "repeat-x",
-          }}
-        ></Box>
-        <Box
-          sx={{
             maxWidth: 800,
             display: "block",
             mx: "auto",
             px: 2,
-            pb: 5,
-            pt: 1,
+            py: 5
           }}
         >
           <Grid container spacing={2}>

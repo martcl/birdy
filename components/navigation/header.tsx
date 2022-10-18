@@ -42,8 +42,8 @@ export default function Header() {
             justifyContent: "space-between",
           }}
         >
-          <Link href="/">
-            <Typography py={0} variant="h2" sx={{color: "text.primary", fontWeight: 700}}>
+          <Link href="/" passHref>
+            <Typography py={0} variant="h2" sx={{ color: "text.primary", fontWeight: 700, cursor: "pointer" }}>
               Nadderud
             </Typography>
           </Link>

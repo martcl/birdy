@@ -1,32 +1,27 @@
 import { Chip, Paper, Stack, Typography } from "@mui/material";
-
-type Event = {
-  id: string;
-  start?: string;
-  end?: string;
-  summary: string;
-  location?: string;
-  description?: string;
-  calander: string;
-};
+import { Event } from "../../pages/terminliste";
+import { unitStyles } from "../style/unitColor";
 
 export const CalanderEvent = ({ event }: { event: Event }) => {
-  const getDateDay = (date: string | undefined) =>
+  const getDateDay = (date: string) =>
     new Date(date || "")
       .toLocaleDateString("no-NO", { day: "numeric" })
       .replace(".", "");
 
-  const getDateClock = (date: string | undefined) => {
+  const getDateClock = (date: string) => {
     let clock = new Date(date || "");
-    return clock.getHours() + ":" + clock.getMinutes();
+    let hours = clock.getHours().toString()
+    let minutes = clock.getMinutes().toString()
+    
+    return (hours.length <= 1 ? hours + "0" : hours) + ":" + (minutes.length  <= 1 ?  minutes + "0" : minutes);
   };
 
-  const getDateWeekday = (date: string | undefined) =>
+  const getDateWeekday = (date: string) =>
     new Date(date || "")
       .toLocaleDateString("no-NO", { weekday: "short" })
       .replace(".", "");
 
-  const isSameDay = (day1: string | undefined, day2: string | undefined) =>
+  const isSameDay = (day1: string, day2: string) =>
     getDateDay(day1) === getDateDay(day2);
 
   return (
@@ -54,8 +49,20 @@ export const CalanderEvent = ({ event }: { event: Event }) => {
         </Stack>
         <Stack sx={{ flexGrow: 1 }} spacing={0.5}>
           <Stack direction="row" spacing={2}>
-            <Typography> {event.summary}</Typography>
-            <Chip size="small" label={event.calander} variant="filled"></Chip>
+            <Typography fontWeight={600}> {event.title}</Typography>
+            {event.groupNames.map((groupName) => (
+              <Chip
+                size="small"
+                label={groupName.name}
+                variant="filled"
+                style={{
+                  backgroundColor: groupName.color,
+                  color:
+                    unitStyles[groupName.name.toLowerCase()]?.color ||
+                    unitStyles["troppen"]?.color,
+                }}
+              />
+            ))}
           </Stack>
           <Stack direction="row" spacing={2}>
             {event.end && (
