@@ -126,18 +126,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const TIME_MIN = new Date(Date.now() - 86400000).toISOString();
 
-  const formatedNowDate = ()=> {
-    let now = new Date()
-    let month = now.getUTCMonth().toString()
-    let day = now.getUTCDay().toString()
-    return now.getUTCFullYear() + "-" + (month.length <= 1 ? "0"+ month : month)  +"-" +(day.length <= 1 ? "0"+ day : day) + "T00:00:00.000Z"
-  }
+  const formatedNowDate = () => {
+    let now = new Date();
+    let month = now.getUTCMonth().toString();
+    let day = now.getUTCDay().toString();
+    return (
+      now.getUTCFullYear() +
+      "-" +
+      (month.length <= 1 ? "0" + month : month) +
+      "-" +
+      (day.length <= 1 ? "0" + day : day) +
+      "T00:00:00.000Z"
+    );
+  };
   const response = await fetch(
     `${process.env.BASE_URL}/sponds/?includeComments=true&includeHidden=true&addProfileInfo=true&scheduled=true&order=asc&max=20&groupId=${process.env.GROUP_ID}&minEndTimestamp=2022-10-17T22:00:00.001Z`,
     {
       headers: {
-        'Cookie': `auth=${process.env.SPOND_AUTH_KEY}`
-      }
+        Cookie: `auth=${process.env.SPOND_AUTH_KEY}`,
+      },
     }
   );
 
@@ -154,9 +161,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       description: event.description ? truncate(event.description, 150) : " ",
       start: event.startTimestamp,
       end: event.endTimestamp,
-      groupNames: typeof event.recipients.group.subGroups === "object" ? event.recipients.group?.subGroups.map((group) => {
-        return { name: group.name, color: group.color };
-      }) || [{ name: "Alle", color: "black" }] : [{ name: "Alle", color: "black" }],
+      groupNames:
+        typeof event.recipients.group === "object" &&
+        typeof event.recipients.group.subGroups === "object"
+          ? event.recipients.group?.subGroups.map((group) => {
+              return { name: group.name, color: group.color };
+            }) 
+          : [{ name: "Alle", color: "black" }],
       location: event.location?.feature || "",
     } as Event;
   });
