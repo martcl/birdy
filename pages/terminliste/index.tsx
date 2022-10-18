@@ -154,6 +154,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return str.length > n ? str.slice(0, n - 1) + "... Les mer på Spond." : str;
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const data: Event[] = await responseData.map((event) => {
     return {
       id: event.id,
@@ -162,8 +164,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       start: event.startTimestamp,
       end: event.endTimestamp,
       groupNames:
-        typeof event.recipients.group === "object" &&
         typeof event.recipients.group.subGroups === "object"
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           ? event.recipients.group?.subGroups.map((group) => {
               return { name: group.name, color: group.color };
             }) 
